@@ -4,8 +4,8 @@ import matplotlib.cm as cm
 import argparse
 import sys
 
-class Queue: #for bread-first-search
-	
+class Queue: #for breadth-first-search
+
 	def __init__(self):
 		self.queue = []
 
@@ -19,7 +19,9 @@ class Queue: #for bread-first-search
 		return len(self.queue) == 0
 
 class Node: #given code
+
 	def __init__(self, value, number, connections=None):
+
 		self.index = number
 		self.connections = connections
 		self.value = value
@@ -27,10 +29,12 @@ class Node: #given code
 class Network: 
 
 	def __init__(self, nodes = None): #given code
+
 		if nodes is None:
 			self.nodes = []
 		else:
 			self.nodes = nodes
+
 
 	def get_mean_degree(self): #calculate mean degree of nodes using simple loop
 		total_degree = 0
@@ -57,14 +61,14 @@ class Network:
 			neighbours = [self.nodes[neighbour] for neighbour, connection in enumerate(node.connections) if connection]
 
 			possible_connections = len(neighbours) * (len(neighbours) - 1) / 2
-			#calculate its possible connections
-			
-			for i, j in enumerate(neighbours): #and check each of its neighbours to see if there is actual connection
+			#calculate possible connections
+
+			for i, j in enumerate(neighbours): #and check each of its neighbours to see the actual connections
 				for next_to in neighbours[i + 1:]:
 					if j.connections[next_to.index]:
 						actual_connections += 1
 
-			if possible_connections != 0: #calculate clustering for current node and add it to totals
+			if possible_connections != 0: #calculate clustering for current node and add value to totals
 				node_clustering = actual_connections / possible_connections
 				total_node_clustering += node_clustering
 
@@ -72,21 +76,22 @@ class Network:
 
 		return mean_clustering
 
-	def get_mean_path_length(self): #calculate the mean path length using loop
+
+	def get_mean_path_length(self):
 
 		total_path_length = 0
 		total_paths = 0
 
 		for node in self.nodes:
-			path = search_paths(self, node) #function defined as this algorithm is going to be used many times for each node
+			path = search_paths(self, node) #function defined as this algorithem is used many times for each node
 			for path_length in path.values():
 
 				total_path_length += path_length
-				total_paths += 1 #the problem of counting path to node itself is emmited in search_paths()
+				total_paths += 1 #the problem of counting path to current node itself is solved in search_paths()
 
 		mean_path_length = total_path_length / total_paths
 
-		return round(mean_path_length, 15) #due to the test requirements of round to 15dp
+		return round(mean_path_length, 15) #due to test requirements of 15dp
 
 	def make_random_network(self, N, connection_probability): #given code
 		'''
@@ -107,6 +112,7 @@ class Network:
 					self.nodes[neighbour_index].connections[index] = 1
 
 	def plot(self): #given code
+
 		fig = plt.figure()
 		ax = fig.add_subplot(111)
 		ax.set_axis_off()
@@ -132,7 +138,7 @@ class Network:
 
 					ax.plot((node_x, neighbour_x), (node_y, neighbour_y), color='black')
 
-def search_paths(network, start_node): #use breadth first search
+def search_paths(network, start_node): #apply breadth-first-search
 
 	#to search paths to all other nodes, return the distance to each other nodes
 
@@ -140,7 +146,8 @@ def search_paths(network, start_node): #use breadth first search
 	queue = Queue()
 	queue.push((start_node,0))
 	visited = []
-	visited.append(start_node.index) #add the node being checked into the visited list so it will not count itself and path to itself
+	visited.append(start_node.index) #add the node being check into the visited list so it will not count itself and
+									#the path to itself
 
 	while not queue.is_empty():
 		start_node, distance = queue.pop()
@@ -154,7 +161,8 @@ def search_paths(network, start_node): #use breadth first search
 
 	return paths
 
-def test_networks(): #given code to test task_3
+def test_networks(): #given code
+
 	#Ring network
 	nodes = []
 	num_nodes = 10
@@ -202,12 +210,12 @@ def test_networks(): #given code to test task_3
 	print("All tests passed")
 
 def parse(arg):
-	#########task 3#########
-	
+
+	######task 3######
 	network = 0
 	test_network = 0
 
-	if 'network' == arg[0]:
+	if '-network' == arg[0]:
 		network = 1
 
 	if '-test_network' == arg[0]:
@@ -218,7 +226,7 @@ def parse(arg):
 def flags():
 	flag = argparse.ArgumentParser(description="type your flags")
 
-	#########task 3#########
+	######task 3######
 	flag.add_argument('-network', action='store_true')
 	flag.add_argument('-test_network', action='store_true')
 
@@ -237,14 +245,14 @@ def main(args):
 	'''
 	network, test_network = parse(args)
 
-	if network and test_network == 0 and args[1]:
-		network_size = args[2]
+	if network and test_network == 0:
+		network_size = int(args[1])
 		connectivity_p = 0.5
-		Network.make_random_network(network_size, connectivity_p)
-		print('Mean degree:', Network.get_mean_degree())
-		print('Average path length:', Network.get_mean_path_length())
-		print('Clustering coefficient:', Network.get_mean_clustering())
-		Network.plot()
+		Network.make_random_network(Network, network_size, connectivity_p)
+		print('Mean degree:', Network.get_mean_degree(Network))
+		print('Average path length:', Network.get_mean_path_length(Network))
+		print('Clustering coefficient:', Network.get_mean_clustering(Network))
+		Network.plot(Network)
 
 	elif test_network and network == 0:
 		test_networks()
@@ -253,4 +261,4 @@ def main(args):
 		print('flag input incorrect')
 
 if __name__=="__main__":
-	main(sys.argv[1:])
+	main(sys..argv[1:])
