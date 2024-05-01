@@ -11,3 +11,5 @@ Install sys
 Install NumPy
 
 To run the program, run main.py
+
+Task_5 is accomplished with Task_2 and Task_3
