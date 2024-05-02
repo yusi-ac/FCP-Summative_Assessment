@@ -486,35 +486,35 @@ def get_mean(opinions_history):
 def defuant_main(num_people = 50, threshold = 0.2, beta = 0.2, nw = None):
 	#Your code for task 2 goes here
 	if nw is None:	
-		# 初始化意见
+		# initial opinions
 		opinions = np.random.rand(num_people)
 
 		plot_hist(opinions,'Initial Opinions')
 		plt.show()
 
-		# 存储每次迭代后的意见数据
+		# Store opinion data after each iteration
 		opinions_history = [opinions.copy()]
 
-		# 模拟意见更新
+		# Simulation opinion update
 		for each in range(num_people*100):
-			# 随机选择一个人
+			# Randomly choose a person
 			person_idx = np.random.randint(0, num_people)
 		
-			# 随机选择左或右邻居
+			# Randomly select your left or right neighbors
 			direction = np.random.choice([-1, 1])
 			neighbor_idx = (person_idx + direction) % num_people
 		
-			# 检查意见差异
+			# Check for differences in opinions
 			diff = abs(opinions[person_idx] - opinions[neighbor_idx])
 			
 			if diff < threshold:
-				# 更新意见
+				# update opinions
 				opinions[person_idx] += beta * (opinions[neighbor_idx] - opinions[person_idx])
 				opinions[neighbor_idx] += beta * (opinions[person_idx] - opinions[neighbor_idx])
-			# 存储当前意见数据
+			# Store current opinion data
 			opinions_history.append(opinions.copy())
 
-			# 可视化迭代过程中的意见变化
+			# Visualize changes in opinion during iteration
 		plt.figure(figsize=(10, 6))
 		for i, opinion in enumerate(opinions_history):
 			plt.plot([i]*num_people, opinion, 'o', markersize=2, color='blue', alpha=0.5)
@@ -524,11 +524,11 @@ def defuant_main(num_people = 50, threshold = 0.2, beta = 0.2, nw = None):
 		plt.ylabel('Opinion')
 		plt.show()
 
-		# 可视化更新后的意见
+		# Visualize the updated comments
 		plot_hist(opinions,'Final Opinions')
 		plt.show()
 	else:
-		#使用Network实现的Defuant model
+		# A Defuant model implemented using Network
 		node_history = []
 		for node in nw.nodes:
 			node_history.append(node)
@@ -547,30 +547,30 @@ def test_defuant(num_people = 50, threshold = 0.2, beta = 0.2):
 	print(f'threshold set at {threshold}')
 	print(f'beta set at {beta}')
 
-	# 初始化意见
+	# initial opinions
 	opinions = np.random.rand(num_people)
 
 	plot_hist(opinions,'Initial Opinions')
 	plt.show()
 
-	# 模拟意见更新
+	# update opinions
 	for each in range(3):
-		# 随机选择一个人
+		# randomly choose a person
 		person_idx = np.random.randint(0, num_people)
 		print(f'------iteration {each}------')
 		print(f'people No. {person_idx} chosen as Xi')
 		
-		# 随机选择左或右邻居
+		# randomly choose left neighbour or right neighbour
 		direction = np.random.choice([-1, 1])
 		print(f'direction {direction} chosen')
 		neighbor_idx = (person_idx + direction) % num_people
 		print(f'people No. {neighbor_idx} chosen as Xj')
 		
-		# 检查意见差异
+		# Check for difference in opinions
 		diff = abs(opinions[person_idx] - opinions[neighbor_idx])
 		
 		if diff < threshold:
-			# 更新意见
+			# update opinions
 			print('diff < threshold, updating opinions')
 			print(f'Xi({each}) = {opinions[person_idx]}, Xj({each}) = {opinions[neighbor_idx]}')
 			opinions[person_idx] += beta * (opinions[neighbor_idx] - opinions[person_idx])
@@ -579,7 +579,7 @@ def test_defuant(num_people = 50, threshold = 0.2, beta = 0.2):
 		else:
 			print('diff >= threshold, no changes made')
 
-	# 可视化更新后的意见
+	# Visualize the updated comments
 	plot_hist(opinions,'Final Opinions')
 	plt.show()	
 
@@ -635,7 +635,7 @@ def main():
 						return opinions
 
 					fig, ax = plt.subplots()
-					# 创建动画，帧数为迭代次数，每帧间隔100毫秒
+					# Create animations in frames as the number of iterations, with 100 milliseconds between each frame
 					ani = animation.FuncAnimation(fig, update, frames=range(len(opinions_history)), interval=100, repeat=False)
 					plt.show()
 					
