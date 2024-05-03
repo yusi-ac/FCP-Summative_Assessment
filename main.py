@@ -541,13 +541,13 @@ def parse(arg):
 		defuant= 1
 		
 		if '-threshold' in sys.argv:
-		threshold = 1
+			threshold = 1
 
 		if '-beta' in sys.argv:
-		beta = 1
+			beta = 1
 
 		if '-use_network' in sys.argv:
-		use_network = 1
+			use_network = 1
 
 	if '-test_defuant' in sys.argv:
 		test_defuant = 1
