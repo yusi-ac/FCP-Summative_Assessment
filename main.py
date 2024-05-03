@@ -562,7 +562,7 @@ def parse(arg):
 	if '-network' in sys.argv:
 		network = 1
 
-	if '-test_network' sys.argv:
+	if '-test_network' in sys.argv:
 		test_network = 1
 
 	######task 3######
@@ -613,12 +613,12 @@ def main():
 	defuant, threshold, beta, test_defuant, use_network, num_people, network, test_network, ring_network, small_world, re_wire = parse(args)
 	
 	###default values for task 2###
-		num_people = 50
-		threshold = 0.2
-		beta = 0.2
+	num_people = 50
+	threshold = 0.2
+	beta = 0.2
 	
 	###default values for task 3###
-		connectivity_p = 0.5
+	connectivity_p = 0.5
 	
 	#####TESTS#####	
 	if test_defuant:
@@ -643,36 +643,36 @@ def main():
 
 		#####Task 5#####
 		if use_network:
-		network_size_idx = sys.argv.index('-use_network')
-		network_size = int(sys.argv[network_size_idx+1])
-		nw = Network()
-		Network.make_random_network(nw, network_size, connectivity_p)
+			network_size_idx = sys.argv.index('-use_network')
+			network_size = int(sys.argv[network_size_idx+1])
+			nw = Network()
+			Network.make_random_network(nw, network_size, connectivity_p)
 					
-		print("Initial Network:")
-		nw.plot()
-		opinions = get_opinions(nw)
-		opinions_history = [opinions.copy()]
-		plot_hist(opinions, 'Initial Opinions:')
-		plt.show()
-
-		for i in range(5):
-			print(f"Iteration {i+1}:")
-			nw = defuant_main(network_size, threshold, beta, nw)
+			print("Initial Network:")
+			nw.plot()
 			opinions = get_opinions(nw)
-			opinions_history.append(opinions)
+			opinions_history = [opinions.copy()]
+			plot_hist(opinions, 'Initial Opinions:')
+			plt.show()
 
-		def update(frame):
-			opinions = opinions_history[frame]
-			plt.hist(np.transpose(opinions), edgecolor='black')
-			return opinions
+			for i in range(5):
+				print(f"Iteration {i+1}:")
+				nw = defuant_main(network_size, threshold, beta, nw)
+				opinions = get_opinions(nw)
+				opinions_history.append(opinions)
 
-		fig, ax = plt.subplots()
-		# Create animations in frames as the number of iterations, with 100 milliseconds between each frame
-		ani = animation.FuncAnimation(fig, update, frames=range(len(opinions_history)), interval=100, repeat=False)
-		plt.show()
+			def update(frame):
+				opinions = opinions_history[frame]
+				plt.hist(np.transpose(opinions), edgecolor='black')
+				return opinions
+
+			fig, ax = plt.subplots()
+			# Create animations in frames as the number of iterations, with 100 milliseconds between each frame
+			ani = animation.FuncAnimation(fig, update, frames=range(len(opinions_history)), interval=100, repeat=False)
+			plt.show()
 					
-		plot_hist(get_mean(opinions_history), 'Mean Opinions:')
-		plt.show()
+			plot_hist(get_mean(opinions_history), 'Mean Opinions:')
+			plt.show()
 					
 		else:
 			defuant_main(num_people, threshold, beta)
