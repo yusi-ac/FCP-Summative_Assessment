@@ -402,7 +402,7 @@ def search_paths(network, start_node): #apply breadth-first-search
 
 '''
 ==============================================================================================================
-5 - This section contains code for ALL TEST FUNCTIONS
+This section contains code for ALL TEST FUNCTIONS
 ==============================================================================================================
 '''
 def test_ising():
@@ -528,7 +528,7 @@ def test_network():
 
 '''
 ==============================================================================================================
-6 - This section contains code for FLAGS
+This section contains code for FLAGS
 ==============================================================================================================
 '''
 def parse(arg):
@@ -608,7 +608,7 @@ def flags():
 	
 '''
 ==============================================================================================================
-This section contains code for the main function- you should write some code for handling flags here
+This section contains code for the main function
 ==============================================================================================================
 '''
 
@@ -725,5 +725,3 @@ def main(args):
 			
 if __name__=="__main__":
 	main(sys.argv[1:])
-
-
