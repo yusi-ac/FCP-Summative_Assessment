@@ -1,10 +1,16 @@
+FCP-Summative_Assessment README.txt
+
+Group_28
+Github repo Link: https://github.com/yusi-ac/FCP-Summative_Assessment
+
+Requirements:
+
 Install python latest version 
-Install the required libraries: numpy, matplotlib, sys
+Install the required libraries: numpy, matplotlib, sys, argparse
 pip install numpy
 pip install matplotlib
 pip install sys
-
-We have imported 'argparse' additionally to complete tasks
+pip install argparse
 
 Type in the command to run the code for each task:
 Task 1: 
